@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinguaHub | 124 Irregular Verbs, 12 Tenses & 25 Prepositions</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter, Plus Jakarta Sans, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="linguahub.css">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col font-sans antialiased transition-colors duration-200">
+
+  <!-- ================= TOP STICKY HEADER ================= -->
+  <header class="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        <!-- Brand Logo -->
+        <div class="flex items-center gap-3 cursor-pointer" onclick="switchNavTab('verbs')">
+          <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-heading font-black text-xl shadow-md transition-colors">
+            L
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-heading font-extrabold text-lg sm:text-xl text-slate-900 dark:text-white tracking-tight">LinguaHub</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desktop Navigation Bar -->
+        <nav class="hidden md:flex items-center p-1.5 bg-slate-100 dark:bg-slate-950/80 rounded-2xl border border-slate-200 dark:border-slate-800 space-x-1" id="desktop-nav">
+          <button onclick="switchNavTab('verbs')" data-tab="verbs" class="tab-btn px-4 py-2 rounded-xl text-xs lg:text-sm font-semibold transition-all duration-200 text-white bg-slate-900 dark:bg-slate-100 dark:text-slate-900 shadow-sm">
+            📘 124 Verbs
+          </button>
+          <button onclick="switchNavTab('flashcards')" data-tab="flashcards" class="tab-btn px-4 py-2 rounded-xl text-xs lg:text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+            🗂️ Flashcards
+          </button>
+          <button onclick="switchNavTab('tenses')" data-tab="tenses" class="tab-btn px-4 py-2 rounded-xl text-xs lg:text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+            ⏱️ 12 Tenses
+          </button>
+          <button onclick="switchNavTab('prepositions')" data-tab="prepositions" class="tab-btn px-4 py-2 rounded-xl text-xs lg:text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+            📍 25 Prepositions
+          </button>
+          <button onclick="switchNavTab('quiz')" data-tab="quiz" class="tab-btn px-4 py-2 rounded-xl text-xs lg:text-sm font-semibold transition-all duration-200 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+            ✨ Quiz Hub
+          </button>
+        </nav>
+
+        <!-- Right Quick Controls: Theme Toggle -->
+        <div class="flex items-center gap-2.5">
+          <button id="theme-toggle" onclick="toggleTheme()" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition" title="Toggle Dark / Light Theme" aria-label="Toggle Theme">
+            <svg id="theme-sun" class="w-5 h-5 hidden dark:block text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 9h-1m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            <svg id="theme-moon" class="w-5 h-5 block dark:hidden text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Navigation Drawer Strip -->
+      <div class="flex md:hidden items-center gap-2 overflow-x-auto no-scrollbar py-2 border-t border-slate-200 dark:border-slate-800 text-xs font-medium">
+        <button onclick="switchNavTab('verbs')" data-tab-m="verbs" class="tab-btn-m px-3 py-1.5 rounded-lg whitespace-nowrap bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-semibold">📘 124 Verbs</button>
+        <button onclick="switchNavTab('flashcards')" data-tab-m="flashcards" class="tab-btn-m px-3 py-1.5 rounded-lg whitespace-nowrap bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400">🗂️ Cards</button>
+        <button onclick="switchNavTab('tenses')" data-tab-m="tenses" class="tab-btn-m px-3 py-1.5 rounded-lg whitespace-nowrap bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400">⏱️ Tenses</button>
+        <button onclick="switchNavTab('prepositions')" data-tab-m="prepositions" class="tab-btn-m px-3 py-1.5 rounded-lg whitespace-nowrap bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400">📍 25 Preps</button>
+        <button onclick="switchNavTab('quiz')" data-tab-m="quiz" class="tab-btn-m px-3 py-1.5 rounded-lg whitespace-nowrap bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400">✨ Quiz</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTAINER ================= -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+
+    <!-- ======================================================== -->
+    <!-- TAB 1: 124 IRREGULAR VERBS MODULE -->
+    <!-- ======================================================== -->
+    <section id="tab-verbs" class="tab-section space-y-8 block">
+      <div class="relative overflow-hidden rounded-3xl bg-slate-900 text-white dark:bg-slate-900/90 border border-slate-800 p-6 sm:p-10 shadow-xl">
+        <div class="relative z-10 max-w-3xl space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-slate-200 border border-white/20">
+            <span>✨ Complete Master Reference</span>
+            <span>•</span>
+            <span>124 Essential Verbs</span>
+            <span>•</span>
+            <span>5 Alternation Patterns (AAA · AAB · ABA · ABB · ABC)</span>
+          </div>
+          <h2 class="font-heading text-2xl sm:text-4xl font-extrabold tracking-tight text-white">Master All 124 Irregular Verbs</h2>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+            Linguistically organized by Germanic ablaut and zero-inflection paradigms with IPA phonetics, comprehensive dictionary definitions, high-frequency collocations, and contextual sentences across Base, Past Simple, and Past Participle.
+          </p>
+
+          <!-- Search and Group Filters (Side-by-Side) -->
+          <div class="pt-2 flex flex-col sm:flex-row gap-3">
+            <div class="relative flex-1">
+              <input 
+                type="text" 
+                id="verb-search-input" 
+                placeholder="Search verb (e.g., 'spread', 'seek', 'arise', 'strike', 'bite')..." 
+                oninput="applyVerbFilters()"
+                class="w-full px-4 py-3 pl-11 rounded-xl bg-slate-950/80 text-white placeholder-slate-400 text-sm border border-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 transition"
+              >
+              <svg class="w-5 h-5 absolute left-3.5 top-3.5 text-slate-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+            <select 
+              id="verb-group-filter" 
+              onchange="applyVerbFilters()"
+              class="px-4 py-3 rounded-xl bg-slate-950/80 text-white text-sm border border-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 transition"
+            >
+              <option value="all">All Patterns (124 Verbs)</option>
+              <option value="group1">AAA · All Identical (17 verbs: bet, spread, quit...)</option>
+              <option value="group2">AAB · Past Simple Identical (1 verb: beat)</option>
+              <option value="group3">ABA · Base & PP Identical (4 verbs: come, run, overcome...)</option>
+              <option value="group4">ABB · Past & PP Identical (55 verbs: bring, seek, strike...)</option>
+              <option value="group5">ABC · All Three Distinct (47 verbs: be, arise, bite, write...)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-xs sm:text-sm text-slate-500 dark:text-slate-400 px-1 font-medium">
+        <span id="verbs-count-status">Showing 124 verbs</span>
+        <span class="text-xs">Click any form or speaker button to hear pronunciation 🔊</span>
+      </div>
+
+      <!-- Verbs Grid -->
+      <div id="verbs-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered via JavaScript -->
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 2: INTERACTIVE 3D FLASHCARDS -->
+    <!-- ======================================================== -->
+    <section id="tab-flashcards" class="tab-section space-y-8 hidden">
+      <div class="max-w-3xl mx-auto space-y-6 text-center">
+        <div class="space-y-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700">
+            <span>🗂️ Active Recall Trainer</span>
+            <span>•</span>
+            <span>Double-Sided 3D Cards</span>
+          </div>
+          <h2 class="font-heading text-3xl font-extrabold text-slate-900 dark:text-white">Interactive Spaced Flashcards</h2>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Click the card or press <kbd class="px-2 py-0.5 bg-slate-200 dark:bg-slate-800 rounded border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-mono text-xs">Spacebar</kbd> to flip. Test spontaneous recall on verb forms and preposition rules.</p>
+        </div>
+
+        <!-- Flashcard Controls -->
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <button onclick="setCardDeck('verbs')" id="deck-verbs-btn" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-950 shadow-sm transition">
+            📘 Irregular Verbs Deck (124)
+          </button>
+          <button onclick="setCardDeck('prepositions')" id="deck-prep-btn" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition">
+            📍 Prepositions Deck (25)
+          </button>
+          <button onclick="shuffleDeck()" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <span>Shuffle</span>
+          </button>
+        </div>
+
+        <!-- 3D Flippable Flashcard -->
+        <div class="w-full max-w-xl mx-auto h-[380px] perspective-1000 cursor-pointer select-none" onclick="toggleCardFlip()">
+          <div id="flashcard-inner" class="relative w-full h-full duration-500 transform-style-3d bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl p-8 flex flex-col justify-between">
+            <!-- Front Face -->
+            <div id="card-front" class="absolute inset-0 backface-hidden p-8 flex flex-col justify-between rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+                <span id="card-deck-name" class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-mono font-bold text-[11px] uppercase tracking-wider">Verbs Deck</span>
+                <span id="card-counter" class="font-mono">Card 1 / 124</span>
+              </div>
+              <div class="my-auto space-y-3">
+                <span class="text-xs uppercase tracking-widest text-slate-400 font-bold" id="card-prompt-label">Infinitive Base Form</span>
+                <div class="flex items-center justify-center gap-3">
+                  <span id="card-front-icon" class="text-4xl">🎲</span>
+                  <h3 id="card-front-title" class="font-heading text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white">bet</h3>
+                </div>
+                <div id="card-front-phonetic" class="text-sm font-mono text-slate-500 dark:text-slate-400">/bɛt/</div>
+                <p id="card-front-hint" class="text-sm text-slate-600 dark:text-slate-400 italic">"Can you recall the Past Simple and Past Participle?"</p>
+              </div>
+              <div class="text-xs text-slate-500 flex items-center justify-center gap-1.5">
+                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/></svg>
+                <span>Click or press Spacebar to Flip Card</span>
+              </div>
+            </div>
+
+            <!-- Back Face -->
+            <div id="card-back" class="absolute inset-0 backface-hidden rotate-y-180 p-8 flex flex-col justify-between rounded-3xl bg-slate-50 dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-700">
+              <div class="flex items-center justify-between text-xs font-semibold text-slate-700 dark:text-slate-300">
+                <span>Solution & Context</span>
+                <button onclick="event.stopPropagation(); playCurrentCardSpeech()" class="p-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:scale-105 transition" title="Listen Pronunciation">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M12 6v12l-4-4H4V10h4l4-4z"/></svg>
+                </button>
+              </div>
+              <div class="my-auto space-y-4">
+                <div class="grid grid-cols-2 gap-3 text-left">
+                  <div class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                    <span class="text-[10px] font-bold uppercase text-slate-500 dark:text-slate-400" id="card-back-past-label">Past Simple</span>
+                    <p id="card-back-past" class="font-heading text-xl font-bold text-slate-900 dark:text-white">bet</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                    <span class="text-[10px] font-bold uppercase text-slate-500 dark:text-slate-400" id="card-back-participle-label">Past Participle</span>
+                    <p id="card-back-participle" class="font-heading text-xl font-bold text-slate-900 dark:text-white">bet</p>
+                  </div>
+                </div>
+                <div class="p-3 rounded-xl bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-left">
+                  <span class="text-[10px] font-bold uppercase text-slate-500 dark:text-slate-400" id="card-back-sentence-label">Context & Collocation</span>
+                  <p id="card-back-sentence" class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 mt-1 leading-relaxed">"He bet ten dollars on the game and won."</p>
+                </div>
+              </div>
+              <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Click to Flip Back</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nav Controls -->
+        <div class="flex items-center justify-center gap-4 pt-2">
+          <button onclick="prevCard()" class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 font-semibold text-xs sm:text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            <span>Previous</span>
+          </button>
+          <button onclick="markCardMastered()" class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-950 font-semibold text-xs sm:text-sm shadow-sm transition flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span>Got It Right</span>
+          </button>
+          <button onclick="nextCard()" class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 font-semibold text-xs sm:text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition flex items-center gap-1.5">
+            <span>Next</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+        <p class="text-xs text-slate-500 dark:text-slate-400">Mastered: <span id="mastered-count" class="font-bold text-slate-900 dark:text-white">0</span> cards this session</p>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 3: 12 VERB TENSES ARCHITECTURE (Exact tenses.html) -->
+    <!-- ======================================================== -->
+    <section id="tab-tenses" class="tab-section space-y-8 hidden">
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-6 space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700">
+          <span>📖 Complete Reference</span>
+          <span>•</span>
+          <span>12 Verb Tenses in English</span>
+          <span>•</span>
+          <span>Forms, Usage & Authentic Examples</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white">12 Verb Tenses in English</h2>
+        <p class="text-sm text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
+          Complete reference with positive, negative, and question structures, grammatical rules, and authentic examples for each tense, directly following the official tenses reference.
+        </p>
+      </div>
+
+      <!-- Overview Matrix Table -->
+      <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 sm:p-6 shadow-sm space-y-3 overflow-hidden">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Tenses Overview Matrix</h3>
+          <span class="text-xs font-mono text-slate-500">Core Pattern: "Rain"</span>
+        </div>
+        <div class="overflow-x-auto no-scrollbar">
+          <table class="w-full text-left text-xs sm:text-sm border-collapse min-w-[560px]">
+            <thead>
+              <tr class="border-b border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 font-semibold bg-slate-50 dark:bg-slate-950/60">
+                <th class="py-3 px-4 rounded-l-xl">Aspect</th>
+                <th class="py-3 px-4 text-slate-900 dark:text-slate-100">Present</th>
+                <th class="py-3 px-4 text-slate-900 dark:text-slate-100">Past</th>
+                <th class="py-3 px-4 text-slate-900 dark:text-slate-100 rounded-r-xl">Future</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800/70 font-medium">
+              <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-bold text-slate-900 dark:text-slate-100 bg-slate-50/50 dark:bg-slate-950/30">Simple</td>
+                <td class="py-3 px-4 text-slate-700 dark:text-slate-300">It rains</td>
+                <td class="py-3 px-4 text-slate-700 dark:text-slate-300">It rained</td>
+                <td class="py-3 px-4 text-slate-700 dark:text-slate-300">It will rain</td>
+              </tr>
+              <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-bold text-slate-900 dark:text-slate-100 bg-slate-50/50 dark:bg-slate-950/30">Continuous</td>
+                <td class="py-3 px-4 text-slate-700 dark:text-slate-300">It is raining</td>
+                <td class="py-3 px-4 text-slate-700 dark:text-slate-300">It was raining</td>
+                <td class="py-3 px-4 text-slate-700 dark:text-slate-300">It will be raining</td>
+              </tr>
+              <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-bold text-slate-900 dark:text-slate-100 bg-slate-50/50 dark:bg-slate-950/30">Perfect</td>
+                <td class="py-3 px-4 text-slate-700 dark:text-slate-300">It has rained</td>
+                <td class="py-3 px-4 text-slate-700 dark:text-slate-300">It had rained</td>
+                <td class="py-3 px-4 text-slate-700 dark:text-slate-300">It will have rained</td>
+              </tr>
+              <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition">
+                <td class="py-3 px-4 font-bold text-slate-900 dark:text-slate-100 bg-slate-50/50 dark:bg-slate-950/30">Perfect Continuous</td>
+                <td class="py-3 px-4 text-slate-700 dark:text-slate-300">It has been raining</td>
+                <td class="py-3 px-4 text-slate-700 dark:text-slate-300">It had been raining</td>
+                <td class="py-3 px-4 text-slate-700 dark:text-slate-300">It will have been raining</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tense Cards -->
+      <div id="tenses-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered via JavaScript -->
+      </div>
+
+      <!-- Tenses Quiz Section -->
+      <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-sm space-y-6">
+        <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+          <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Tenses Quick Quiz</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Test your mastery of past, present, and future aspects.</p>
+        </div>
+        <div id="tenses-quiz-container" class="space-y-4">
+          <!-- Rendered via JavaScript -->
+        </div>
+        <div class="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800">
+          <button onclick="gradeTensesQuiz()" class="px-5 py-2.5 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:opacity-90 text-xs sm:text-sm font-semibold transition">
+            Check Answers
+          </button>
+          <div id="tenses-quiz-result" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 4: CHETCHAT 25 PREPOSITIONS MASTERCLASS -->
+    <!-- ======================================================== -->
+    <section id="tab-prepositions" class="tab-section space-y-8 hidden">
+      <div class="relative overflow-hidden rounded-3xl bg-slate-900 text-white dark:bg-slate-900/90 border border-slate-800 p-6 sm:p-10 shadow-xl">
+        <div class="relative z-10 max-w-3xl space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-slate-200 border border-white/20">
+            <span>📍 ChetChat Masterclass</span>
+            <span>•</span>
+            <span>All 25 Prepositions with Dedicated SVGs</span>
+          </div>
+          <h2 class="font-heading text-2xl sm:text-4xl font-extrabold tracking-tight text-white">25 English Prepositions Masterclass</h2>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+            Every preposition includes its dedicated vector illustration, spatial rules, and contrast tips (<em>In/On/At</em>, <em>Made of vs. Made from</em>, <em>Between vs. Among</em>, <em>Over vs. Above</em>, <em>Beside vs. Besides</em>).
+          </p>
+
+          <!-- Search and Category Filters (Side-by-Side Dropdown) -->
+          <div class="pt-2 flex flex-col sm:flex-row gap-3">
+            <div class="relative flex-1">
+              <input 
+                type="text" 
+                id="prep-search-input" 
+                placeholder="Search preposition (e.g., 'through', 'since', 'beside', 'onto')..." 
+                oninput="applyPrepFilters()"
+                class="w-full px-4 py-3 pl-11 rounded-xl bg-slate-950/80 text-white placeholder-slate-400 text-sm border border-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 transition"
+              >
+              <svg class="w-5 h-5 absolute left-3.5 top-3.5 text-slate-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+            <select 
+              id="prep-category-filter" 
+              onchange="applyPrepFilters()"
+              class="px-4 py-3 rounded-xl bg-slate-950/80 text-white text-sm border border-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 transition"
+            >
+              <option value="all">All Categories (25 Prepositions)</option>
+              <option value="spatial-triad">In, On, At (Spatial Triad)</option>
+              <option value="time-cause">Since vs. For (Time & Cause)</option>
+              <option value="vertical-levels">Over, Above, Under, Below (Vertical Levels)</option>
+              <option value="trajectory">To, Towards, From (Trajectory)</option>
+              <option value="motion-path">Along, Around, Across, Through (Motion Paths)</option>
+              <option value="distribution">Between, Among, Amid (Distribution)</option>
+              <option value="dynamic-motion">Into, Onto, Off (Dynamic Motion)</option>
+              <option value="possession-words">Of, Beside, Besides (Possession & Nuances)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-xs sm:text-sm text-slate-500 dark:text-slate-400 px-1 font-medium">
+        <span id="preps-count-status">Showing 25 prepositions</span>
+        <span class="text-xs">Click any card button to hear native pronunciation & rules 🔊</span>
+      </div>
+
+      <!-- Prepositions Cards Grid -->
+      <div id="prepositions-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered via JavaScript -->
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 5: COMPREHENSIVE QUIZ HUB -->
+    <!-- ======================================================== -->
+    <section id="tab-quiz" class="tab-section space-y-8 hidden">
+      <div class="max-w-3xl mx-auto bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-6">
+          <div>
+            <span class="px-2.5 py-1 rounded-md bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-bold uppercase tracking-wider">Exam Practice</span>
+            <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mt-1">Unified Grammar & Preposition Quiz</h2>
+            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Solve the contextual challenges testing irregular forms and prepositional contrasts.</p>
+          </div>
+          <div class="text-right">
+            <span class="text-xs uppercase tracking-wider text-slate-400 font-bold block">Current Score</span>
+            <span id="quiz-score-display" class="font-heading text-3xl font-extrabold text-slate-900 dark:text-white">0 / 8</span>
+          </div>
+        </div>
+
+        <div class="space-y-6 mt-6" id="quiz-question-list">
+          <!-- Rendered via JavaScript -->
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+          <button onclick="resetUnifiedQuiz()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+            Reset All Questions
+          </button>
+          <span class="text-xs text-slate-400">Immediate explanation given after every choice</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-12 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+      <div class="flex items-center gap-2">
+        <span class="w-6 h-6 rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold flex items-center justify-center text-xs">L</span>
+        <p>All rights reserved. Done by Noami Costa</p>
+      </div>
+      <div class="flex items-center gap-6">
+        <span>Web Speech API Synthesis</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= NOTIFICATION TOAST ================= -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 px-4 py-3 rounded-2xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-xs font-semibold shadow-2xl flex items-center gap-2">
+    <span id="toast-message">Action confirmed</span>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script src="linguahub-data.js"></script>
+  <script src="linguahub.js"></script>
+</body>
+</html>
